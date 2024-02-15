@@ -1,0 +1,35 @@
+openapi: 3.0.1
+info:
+  title: testApi123
+  description: ''
+  version: '1.0'
+servers:
+  - url: https://testapim-cm-east1.azure-api.net/testApi123
+paths:
+  /testget1:
+    get:
+      summary: testGet1
+      operationId: testget1
+      responses:
+        '200':
+          description: 
+  /testpost1:
+    post:
+      summary: testpost1
+      operationId: testpost1
+      responses:
+        '200':
+          description: 
+components:
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: Ocp-Apim-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: subscription-key
+      in: query
+security:
+  - apiKeyHeader: [ ]
+  - apiKeyQuery: [ ]

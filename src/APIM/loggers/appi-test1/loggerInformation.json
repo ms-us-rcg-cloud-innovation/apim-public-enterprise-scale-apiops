@@ -1,0 +1,10 @@
+{
+  "properties": {
+    "credentials": {
+      "instrumentationKey": "{{Logger-Credentials--65cbca87217d201bccc2022e}}"
+    },
+    "isBuffered": true,
+    "loggerType": "applicationInsights",
+    "resourceId": "/subscriptions/07a0904d-a5d1-4225-9425-271c26419878/resourceGroups/uat-cm-apim-rg2/providers/Microsoft.Insights/components/appi-test1"
+  }
+}

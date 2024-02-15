@@ -59,17 +59,18 @@ jobs:
 
       - run: |
           Set-AzContext -SubscriptionId "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+          ./apim-import-export.ps1 -ResourceGroupName "${{ env.RESOURCE_GROUP }}" -ApimServiceName "${{ env.APIM_NAME }}" -Direction "${{ env.DIRECTION }}" -OutputFolder "${{ env.OUTPUT_FOLDER }}"
           shell: pwsh
 
           
-      - id: apim-export
-        name: Export developer portal content
-        uses: jannemattila/azure-api-management-developer-portal-action@v1
-        with:
-          apimName: ${{env.APIM_NAME}}
-          resourceGroup: ${{env.RESOURCE_GROUP}}
-          direction: ${{env.DIRECTION}}
-          folder: ${{env.OUTPUT_FOLDER}}
+      # - id: apim-export
+      #   name: Export developer portal content
+      #   uses: jannemattila/azure-api-management-developer-portal-action@v1
+      #   with:
+      #     apimName: ${{env.APIM_NAME}}
+      #     resourceGroup: ${{env.RESOURCE_GROUP}}
+      #     direction: ${{env.DIRECTION}}
+      #     folder: ${{env.OUTPUT_FOLDER}}
 
       - name: Upload developer portal content as artifact
         uses: actions/upload-artifact@v2.2.4

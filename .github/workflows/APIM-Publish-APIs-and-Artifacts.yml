@@ -31,7 +31,7 @@ on:
   workflow_dispatch:
     inputs:
       environment: 
-        description: 'environment to extract from'
+        description: 'environment to publish to'
         required: true
         type: environment
       USE_CONFIG_FILE:

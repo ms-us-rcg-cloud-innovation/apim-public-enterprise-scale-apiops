@@ -56,6 +56,11 @@ jobs:
           $pscredential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList ${{ secrets.AZURE_CLIENT_ID }}, $SecureStringPwd
           Connect-AzAccount -ServicePrincipal -Credential $pscredential -Tenant "${{ secrets.AZURE_TENANT_ID }}"
         shell: pwsh
+
+      - run: |
+          Set-AzContext -SubscriptionId "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+          shell: pwsh
+
           
       - id: apim-export
         name: Export developer portal content

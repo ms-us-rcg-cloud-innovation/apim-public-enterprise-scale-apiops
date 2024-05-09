@@ -38,7 +38,7 @@ on:
         required: false
         type: boolean
         default: false
-      CONFIG_FILE_NAME:
+      CONFIGURATION_YAML_PATH:
         description: 'Select Config File'
         required: false
         type: choice

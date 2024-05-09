@@ -1,9 +1,9 @@
 openapi: 3.0.1
 info:
-  title: Echo API2
+  title: Echo API
   version: '1.0'
 servers:
-  - url: https://testapim-cm-east1.azure-api.net/echo
+  - url: https://apimarektest2.azure-api.net/echo
 paths:
   /resource:
     get:

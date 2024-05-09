@@ -9,10 +9,11 @@ paths:
   /post100:
     post:
       summary: post100
+      description: post100
       operationId: post100
       responses:
         '200':
-          description: 
+          description: ''
 components:
   securitySchemes:
     apiKeyHeader:

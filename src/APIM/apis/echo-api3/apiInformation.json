@@ -4,7 +4,7 @@
     "authenticationSettings": {},
     "displayName": "Echo API",
     "isCurrent": true,
-    "path": "echo",
+    "path": "echo3",
     "protocols": [
       "https"
     ],

@@ -2,7 +2,7 @@
   "properties": {
     "apiRevision": "1",
     "authenticationSettings": {},
-    "displayName": "Echo API2",
+    "displayName": "Echo API",
     "isCurrent": true,
     "path": "echo",
     "protocols": [

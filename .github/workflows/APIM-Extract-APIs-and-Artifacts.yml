@@ -101,10 +101,7 @@ jobs:
                 echo "CONFIGURATION_YAML_PATH=${{ github.workspace }}/src/apisTeam2.yaml" >> $env:GITHUB_ENV
               } 
             }
-          } else {
-            echo "CONFIG_FILE_NAME=not_selected" >> $env:GITHUB_ENV
-            echo "CONFIGURATION_YAML_PATH=not_applicable" >> $env:GITHUB_ENV
-          }
+          } 
         shell: pwsh
     
       - run: |

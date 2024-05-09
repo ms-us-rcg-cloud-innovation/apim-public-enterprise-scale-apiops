@@ -9,17 +9,19 @@ paths:
   /get101:
     get:
       summary: get101
+      description: get101
       operationId: get101
       responses:
         '200':
-          description: 
+          description: ''
   /post101:
     post:
       summary: post101
+      description: post101
       operationId: post101
       responses:
         '200':
-          description: 
+          description: ''
 components:
   securitySchemes:
     apiKeyHeader:

@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: Echo API
+  title: Echo API2
   version: '1.0'
 servers:
   - url: https://apimarektest2.azure-api.net/echo

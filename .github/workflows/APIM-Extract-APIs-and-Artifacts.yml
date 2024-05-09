@@ -95,13 +95,10 @@ jobs:
             } else {
               echo "CONFIG_FILE_NAME=${{ github.event.inputs.CONFIG_FILE_NAME }}" >> $env:GITHUB_ENV
 
-              if ("${{ github.event.inputs.CONFIG_FILE_NAME }}" -eq "config1") {
+              if ("${{ github.event.inputs.CONFIG_FILE_NAME }}" -eq "apisTeam1") {
                 echo "CONFIGURATION_YAML_PATH=${{ github.workspace }}/src/apisTeam1.yaml" >> $env:GITHUB_ENV
-              } elseif ("${{ github.event.inputs.CONFIG_FILE_NAME }}" -eq "config2") {
+              } elseif ("${{ github.event.inputs.CONFIG_FILE_NAME }}" -eq "apisTeam2") {
                 echo "CONFIGURATION_YAML_PATH=${{ github.workspace }}/src/apisTeam2.yaml" >> $env:GITHUB_ENV
-              } elseif ("${{ github.event.inputs.CONFIG_FILE_NAME }}" -eq "config3") {
-                echo "CONFIGURATION_YAML_PATH=${{ github.workspace }}/src/apisTeam3.yaml" >> $env:GITHUB_ENV
-              }
             }
           } else {
             echo "CONFIG_FILE_NAME=not_selected" >> $env:GITHUB_ENV

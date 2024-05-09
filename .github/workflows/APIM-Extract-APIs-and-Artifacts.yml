@@ -89,15 +89,15 @@ jobs:
       - run: |
           echo "USE_CONFIG_FILE=${{ github.event.inputs.USE_CONFIG_FILE }}" >> $env:GITHUB_ENV
           if (${{ github.event.inputs.USE_CONFIG_FILE }} -eq $true) {
-            if ([string]::IsNullOrEmpty("${{ github.event.inputs.CONFIG_FILE_NAME }}")) {
-              Write-Error "Error: CONFIG_FILE_NAME must be provided when USE_CONFIG_FILE is selected."
+            if ([string]::IsNullOrEmpty("${{ github.event.inputs.CONFIGURATION_YAML_PATH }}")) {
+              Write-Error "Error: CONFIGURATION_YAML_PATH must be provided when USE_CONFIG_FILE is selected."
               exit 1
             } else {
-              echo "CONFIG_FILE_NAME=${{ github.event.inputs.CONFIG_FILE_NAME }}" >> $env:GITHUB_ENV
+              echo "CONFIGURATION_YAML_PATH=${{ github.event.inputs.CONFIGURATION_YAML_PATH }}" >> $env:GITHUB_ENV
 
-              if ("${{ github.event.inputs.CONFIG_FILE_NAME }}" -eq "apisTeam1") {
+              if ("${{ github.event.inputs.CONFIGURATION_YAML_PATH }}" -eq "apisTeam1") {
                 echo "CONFIGURATION_YAML_PATH=${{ github.workspace }}/src/apisTeam1.yaml" >> $env:GITHUB_ENV
-              } elseif ("${{ github.event.inputs.CONFIG_FILE_NAME }}" -eq "apisTeam2") {
+              } elseif ("${{ github.event.inputs.CONFIGURATION_YAML_PATH }}" -eq "apisTeam2") {
                 echo "CONFIGURATION_YAML_PATH=${{ github.workspace }}/src/apisTeam2.yaml" >> $env:GITHUB_ENV
               } 
             }

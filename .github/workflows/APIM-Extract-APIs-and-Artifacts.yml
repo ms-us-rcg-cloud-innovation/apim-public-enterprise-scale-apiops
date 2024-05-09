@@ -1,5 +1,5 @@
 #####################################################################################################
-# NOTE: The publisher keys off of environment variablesto change the behavior of the publish process.
+# NOTE: The publisher keys off of environment variables to change the behavior of the publish process.
 #       * CONFIGURATION_YAML_PATH - if exists, will use config file to select APIs to extract
 #
 #       More details here; https://github.com/Azure/apiops/wiki/Configuration#configuration-providers
@@ -9,7 +9,6 @@ name: APIM - Extract APIs and Artifacts
 
 on:
   workflow_call:
-    #NOTE: workflow_call doesn't support choice inputs, have to constrain in calling workflow
     inputs:
       environment:
         description: 'environment to extract from'
@@ -32,7 +31,7 @@ on:
       environment: 
         description: 'environment to extract from'
         required: true
-        type: environment
+        type: string
       USE_CONFIG_FILE:
         description: 'Use Config File to Choose APIs to Extract'
         required: false
@@ -50,10 +49,10 @@ on:
         required: true
         type: choice
         options:
-        - OpenAPIV3Yaml 
-        - OpenAPIV3Json
-        - OpenAPIV2Yaml
-        - OpenAPIV2Json
+          - OpenAPIV3Yaml 
+          - OpenAPIV3Json
+          - OpenAPIV2Yaml
+          - OpenAPIV2Json
 
 permissions:
   id-token: write
@@ -68,7 +67,6 @@ jobs:
   APIM-extract-apis:
     runs-on: ubuntu-latest
     environment: ${{inputs.environment}}
-    #if: ${{ inputs.environment != 'dev'}}  #### Don't want to inadvertantly deploy back to dev as it is our starting point, but may want to override in future ###
     env:
       AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
@@ -76,35 +74,39 @@ jobs:
       AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       AZURE_RESOURCE_GROUP_NAME: ${{ vars.AZURE_RESOURCE_GROUP_NAME }}
       API_MANAGEMENT_SERVICE_NAME: ${{ vars.API_MANAGEMENT_SERVICE_NAME }}
-      API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH: ${{ GITHUB.WORKSPACE }}/src/APIM  # change this to the artifacts folder
+      API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH: ${{ GITHUB.WORKSPACE }}/src/APIM
       API_SPECIFICATION_FORMAT: ${{inputs.API_SPECIFICATION_FORMAT}} 
-      
+
     steps:
-      #############################################################################################
-      #NOTE: The extractor is looking for the existance of this environment variable to determine #
-      #      if it is going to extract a set of APIs as opposed to all the APIS.  If we are       #
-      #      going to extract all APIs, we simply don't create that environment variable.         #
-      #      This is where you add the absolute path to the configuration file.                   #
-      #############################################################################################
-      - run: |
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set CONFIGURATION_YAML_PATH
+        shell: pwsh
+        run: |
           echo "USE_CONFIG_FILE=${{ github.event.inputs.USE_CONFIG_FILE }}" >> $env:GITHUB_ENV
           if (${{ github.event.inputs.USE_CONFIG_FILE }} -eq $true) {
             if ([string]::IsNullOrEmpty("${{ github.event.inputs.CONFIGURATION_YAML }}")) {
-              Write-Error "Error: CONFIGURATION_YAML_PATH must be provided when USE_CONFIG_FILE is selected."
+              Write-Error "Error: CONFIGURATION_YAML must be provided when USE_CONFIG_FILE is selected."
               exit 1
             } else {
-              echo "CONFIGURATION_YAML_PATH=${{ github.event.inputs.CONFIGURATION_YAML_PATH }}" >> $env:GITHUB_ENV
-              echo "----------"
-              echo "----------"
-              echo CONFIGURATION_YAML_PATH
               if ("${{ github.event.inputs.CONFIGURATION_YAML }}" -eq "apisTeam1") {
                 echo "CONFIGURATION_YAML_PATH=${{ github.workspace }}/src/apisTeam1.yaml" >> $env:GITHUB_ENV
               } elseif ("${{ github.event.inputs.CONFIGURATION_YAML }}" -eq "apisTeam2") {
                 echo "CONFIGURATION_YAML_PATH=${{ github.workspace }}/src/apisTeam2.yaml" >> $env:GITHUB_ENV
-              } 
+              }
+              echo "CONFIGURATION_YAML_PATH set to: $env:CONFIGURATION_YAML_PATH"
             }
-          } 
-        shell: pwsh
+          } else {
+            echo "CONFIG_FILE_NAME=not_selected" >> $env:GITHUB_ENV
+            echo "CONFIGURATION_YAML_PATH=not_applicable" >> $env:GITHUB_ENV
+          }
+
+
+      - name: No Config File
+        if: env.USE_CONFIG_FILE == 'false'
+        run: echo "Not using any config file"
+
     
       - run: |
           Write-Host "Environment: ${{inputs.environment}}"

@@ -33,14 +33,19 @@ on:
         description: 'environment to extract from'
         required: true
         type: environment
-      USE_CONFIG_FILE: 
+      USE_CONFIG_FILE:
+        description: 'Use Config File to Choose APIs to Extract'
+        required: false
+        type: boolean
+        default: false
+      CONFIG_FILE_NAME:
         description: 'Select Config File'
         required: false
         type: string
-        default: 'config1'
         options:
-          - 'apisTeam1'
-          - 'apisTeam2'
+          - 'config1'
+          - 'config2'
+          - 'config3'
       API_SPECIFICATION_FORMAT:
         description: 'API Specification Format'     
         required: true

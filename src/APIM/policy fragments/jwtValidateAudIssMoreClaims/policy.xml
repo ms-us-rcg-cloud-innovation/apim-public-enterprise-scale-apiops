@@ -1,0 +1,25 @@
+<!--
+    IMPORTANT:
+    - Policy fragment are included as-is whenever they are referenced.
+    - If using variables. Ensure they are setup before use.
+    - Copy and paste your code here or simply start coding
+-->
+<fragment>
+	<validate-jwt header-name="Authorization" require-scheme="Bearer" output-token-variable-name="jwt-token">
+		<issuer-signing-keys>
+			<key>{{jwtSigningKey1}}</key>
+		</issuer-signing-keys>
+		<audiences>
+			<audience>{{jwtAudience1}}</audience>
+		</audiences>
+		<issuers>
+			<issuer>{{jwtIssuer1}}</issuer>
+		</issuers>
+		<required-claims>
+			<claim name="Role" match="all">
+				<value>{{readRole}}</value>
+				<value>{{writeRole}}</value>
+			</claim>
+		</required-claims>
+	</validate-jwt>
+</fragment>

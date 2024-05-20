@@ -1,0 +1,8 @@
+{
+  "properties": {
+    "displayName": "readRole",
+    "secret": false,
+    "tags": [],
+    "value": "Read"
+  }
+}

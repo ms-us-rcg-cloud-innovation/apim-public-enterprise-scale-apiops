@@ -14,6 +14,8 @@
 	<inbound>
 		<base />
 		<rate-limit-by-key calls="100" renewal-period="60" counter-key="@(context.Subscription?.Key ?? "anonymous")" />
+		<include-fragment fragment-id="jwtValidateAudIssMoreClaimsAny" />
+		<include-fragment fragment-id="returnResponseJwtContents" />
 	</inbound>
 	<backend>
 		<base />

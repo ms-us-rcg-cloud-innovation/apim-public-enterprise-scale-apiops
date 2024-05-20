@@ -14,6 +14,13 @@ paths:
       responses:
         '200':
           description: ''
+  /postJwtWellKnown:
+    post:
+      summary: postJwtWellKnown
+      operationId: postjwtwellknown
+      responses:
+        '200':
+          description: 
 components:
   securitySchemes:
     apiKeyHeader:

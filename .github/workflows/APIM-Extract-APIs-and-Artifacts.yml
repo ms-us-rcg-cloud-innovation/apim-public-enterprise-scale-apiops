@@ -33,11 +33,14 @@ on:
         description: 'environment to extract from'
         required: true
         type: environment
-      USE_CONFIG_FILE: 
-        description: 'Use Config File to Choose APIs to Extract'
-        required: false
-        type: boolean
-        default: false
+      CONFIGURATION_YAML_PATH:
+        description: 'Choose Wether to extract all Apis or extract apis listed an extraction configuration file'     
+        required: true
+        type: choice
+        options:
+        - Extract All APIs
+        - apisTeam1
+        - apisTeam2
       API_SPECIFICATION_FORMAT:
         description: 'API Specification Format'     
         required: true

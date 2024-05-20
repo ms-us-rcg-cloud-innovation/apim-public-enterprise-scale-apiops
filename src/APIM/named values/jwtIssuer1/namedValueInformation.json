@@ -1,0 +1,8 @@
+{
+  "properties": {
+    "displayName": "jwtIssuer1",
+    "secret": false,
+    "tags": [],
+    "value": "https://b2ctestingsamples.b2clogin.com/e6808931-f506-49e1-afda-9e810faf8d47/v2.0/"
+  }
+}

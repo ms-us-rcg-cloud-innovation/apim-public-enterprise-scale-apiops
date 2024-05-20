@@ -17,10 +17,11 @@ paths:
   /postJwtWellKnown:
     post:
       summary: postJwtWellKnown
+      description: postJwtWellKnown
       operationId: postjwtwellknown
       responses:
         '200':
-          description: 
+          description: ''
 components:
   securitySchemes:
     apiKeyHeader:

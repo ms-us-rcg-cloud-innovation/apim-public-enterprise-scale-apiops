@@ -93,6 +93,7 @@ jobs:
           Write-Host "API_MANAGEMENT_SERVICE_NAME: ${{env.API_MANAGEMENT_SERVICE_NAME}}"
           Write-Host "AZURE_RESOURCE_GROUP_NAME: ${{env.AZURE_RESOURCE_GROUP_NAME}}"
           Write-Host "API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH: ${{env.API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH}}"
+          Write-Host "HELLO"
         shell: pwsh
         
       - uses: actions/checkout@v3

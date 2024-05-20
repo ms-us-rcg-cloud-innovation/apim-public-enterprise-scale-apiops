@@ -1,0 +1,14 @@
+<!--
+    IMPORTANT:
+    - Policy fragment are included as-is whenever they are referenced.
+    - If using variables. Ensure they are setup before use.
+    - Copy and paste your code here or simply start coding
+-->
+<fragment>
+	<validate-jwt header-name="Authorization" failed-validation-httpcode="401" failed-validation-error-message="Unauthorized. Access token is missing or invalid." output-token-variable-name="jwt-token">
+		<openid-config url="{{identityEndpoint1}}" />
+		<audiences>
+			<audience>{{jwtAudience0}}</audience>
+		</audiences>
+	</validate-jwt>
+</fragment>

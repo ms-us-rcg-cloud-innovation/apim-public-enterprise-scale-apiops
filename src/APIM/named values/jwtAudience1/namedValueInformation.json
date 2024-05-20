@@ -1,0 +1,8 @@
+{
+  "properties": {
+    "displayName": "jwtAudience1",
+    "secret": false,
+    "tags": [],
+    "value": "myapi1.com"
+  }
+}

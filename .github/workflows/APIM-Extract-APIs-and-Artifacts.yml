@@ -64,7 +64,7 @@ jobs:
   APIM-extract-apis:
     runs-on: ubuntu-latest
     environment: ${{inputs.environment}}
-    if: ${{ inputs.API_SPECIFICATION_FORMAT == 'Extract All APIs'}}  #### Don't want to inadvertantly deploy back to dev as it is our starting point, but may want to override in future ###
+    if: ${{ inputs.API_SPECIFICATION_FORMAT = 'Extract All APIs'}}  #### Don't want to inadvertantly deploy back to dev as it is our starting point, but may want to override in future ###
     env:
       AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}

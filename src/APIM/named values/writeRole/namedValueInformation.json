@@ -1,0 +1,8 @@
+{
+  "properties": {
+    "displayName": "writeRole",
+    "secret": false,
+    "tags": [],
+    "value": "ReadWrite"
+  }
+}

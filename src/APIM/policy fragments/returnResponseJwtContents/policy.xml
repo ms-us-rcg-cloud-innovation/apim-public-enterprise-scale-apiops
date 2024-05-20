@@ -1,0 +1,22 @@
+<!--
+    IMPORTANT:
+    - Policy fragment are included as-is whenever they are referenced.
+    - If using variables. Ensure they are setup before use.
+    - Copy and paste your code here or simply start coding
+-->
+<fragment>
+	<return-response>
+		<set-status code="200" reason="OK" />
+		<set-header name="jwt-subject" exists-action="override">
+			<value>@(((Jwt)context.Variables["jwt-token"]).Subject)</value>
+		</set-header>
+		<set-body>@{
+        var jwtToken = context.Variables.GetValueOrDefault("jwt-token") as Jwt;
+        if (jwtToken != null)
+        {
+            return new JObject(jwtToken.Claims.Select(c => new JProperty(c.Key, c.Value))).ToString();
+        }
+        return null;
+    }</set-body>
+	</return-response>
+</fragment>

@@ -83,6 +83,7 @@ jobs:
           if ("${{inputs.USE_CONFIG_FILE}}" -eq "true" )
           {
             "CONFIGURATION_YAML_PATH=${{ GITHUB.WORKSPACE }}/src/apisTeam1.yaml" >> $env:GITHUB_ENV
+            Write-Host "Config URL Set"
           }
         shell: pwsh
     

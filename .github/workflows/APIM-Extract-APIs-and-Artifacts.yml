@@ -150,9 +150,12 @@ jobs:
           Write-Host "AZURE_RESOURCE_GROUP_NAME: ${{ env.AZURE_RESOURCE_GROUP_NAME }}"
           Write-Host "API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH: ${{ env.API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH }}"
         shell: pwsh
-        
+
       - uses: actions/checkout@v3
-          
+
+      - name: Clear APIM folder contents
+        run: rm -rf ${{ GITHUB.WORKSPACE }}/src/APIM/*
+
       - name: Run extractor
         run: |
           Set-StrictMode -Version Latest

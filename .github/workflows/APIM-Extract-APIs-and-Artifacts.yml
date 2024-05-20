@@ -83,6 +83,7 @@ jobs:
           if ("${{inputs.USE_CONFIG_FILE}}" -eq "true" )
           {
             "CONFIGURATION_YAML_PATH=${{ GITHUB.WORKSPACE }}/src/apim-extract-configuration.yaml" >> $env:GITHUB_ENV
+            Write-Host "Config File Set"
           }
         shell: pwsh
     

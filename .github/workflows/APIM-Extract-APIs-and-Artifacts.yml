@@ -82,27 +82,17 @@ jobs:
       #      going to extract all APIs, we simply don't create that environment variable.         #
       #      This is where you add the absolute path to the configuration file.                   #
       #############################################################################################
-      - run: |
-          if ("${{inputs.USE_CONFIG_FILE}}" -eq "true" )
-          {
-            "CONFIGURATION_YAML_PATH=${{ GITHUB.WORKSPACE }}/src/apisTeam1.yaml" >> $env:GITHUB_ENV
-            Write-Host "Config URL Set"
-          }
-        shell: pwsh
-    
-      - run: |
-          Write-Host "Environment: ${{inputs.environment}}"
-          Write-Host "CONFIGURATION_YAML_PATH: ${{env.CONFIGURATION_YAML_PATH}}"
-          Write-Host "API_SPECIFICATION_FORMAT: ${{env.API_SPECIFICATION_FORMAT}}"
-          Write-Host "API_MANAGEMENT_SERVICE_NAME: ${{env.API_MANAGEMENT_SERVICE_NAME}}"
-          Write-Host "AZURE_RESOURCE_GROUP_NAME: ${{env.AZURE_RESOURCE_GROUP_NAME}}"
-          Write-Host "API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH: ${{env.API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH}}"
-          Write-Host "HELLO"
-        shell: pwsh
-        
-      - uses: actions/checkout@v3
-          
-      - name: Run extractor
+      - name: Run extractor without Config Yaml
+        if: ${{ github.event.inputs.CONFIGURATION_YAML_PATH == 'Extract All APIs' }}
+        env:
+          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
+          API_MANAGEMENT_SERVICE_NAME: ${{ secrets.API_MANAGEMENT_SERVICE_NAME }}
+          API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH: ${{ GITHUB.WORKSPACE }}/apimartifacts  # change this to the artifacts folder
+          API_SPECIFICATION_FORMAT: ${{ github.event.inputs.API_SPECIFICATION_FORMAT }} 
         run: |
           Set-StrictMode -Version Latest
           $ErrorActionPreference = "Stop"
@@ -110,19 +100,28 @@ jobs:
           $InformationPreference = "Continue"
 
           Write-Information "Downloading extractor..."
-          $extractorFileName = "${{ runner.os }}" -like "*win*" ? "extractor.win-x64.exe" : "extractor.linux-x64.exe"
-          $uri = "https://github.com/Azure/apiops/releases/download/${{ env.apiops_release_version }}/$extractorFileName"
-          $destinationFilePath = Join-Path "${{ runner.temp }}" "extractor.exe"
-          Invoke-WebRequest -Uri "$uri" -OutFile "$destinationFilePath"
-          Write-Information "DestinationFilePath: $destinationFilePath"
-          Write-Information "Extractor downloaded..."
+          $extractorFileName = "extractor.linux-x64"
+          $extractorFinalFileName = "extractor"
+          if ("${{ runner.os }}" -like "*win*") {
+            $extractorFileName = "extractor.win-x64.exe"
+            $extractorFinalFileName = "extractor.exe"
+          }
+          elseif ("${{ runner.os }}" -like "*mac*" -and "${{ runner.arch }}" -like "*arm*") {
+            $extractorFileName = "extractor.osx-arm64"
+          }
+          elseif ("${{ runner.os }}" -like "*mac*" -and "${{ runner.arch }}" -like "*x86_64*") {
+            $extractorFileName = "extractor.osx-x64"
+          }
           
+          $uri = "https://github.com/Azure/apiops/releases/download/${{ env.apiops_release_version }}/$extractorFileName"
+          $destinationFilePath = Join-Path "${{ runner.temp }}" $extractorFinalFileName
+          Invoke-WebRequest -Uri "$uri" -OutFile "$destinationFilePath"
+
           if ("${{ runner.os }}" -like "*linux*")
           {
             Write-Information "Setting file permissions..."
             & chmod +x "$destinationFilePath"
             if ($LASTEXITCODE -ne 0) { throw "Setting file permissions failed."}
-            Write-Information "Setting file permissions complete..."
           }
 
           & "$destinationFilePath"              

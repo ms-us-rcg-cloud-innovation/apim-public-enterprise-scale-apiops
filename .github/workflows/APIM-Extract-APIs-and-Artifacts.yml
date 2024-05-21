@@ -33,6 +33,7 @@ on:
           - Extract All APIs
           - apisTeam1
           - apisTeam2
+          - apisTeam3
       API_SPECIFICATION_FORMAT:
         description: 'API Specification Format'
         required: true

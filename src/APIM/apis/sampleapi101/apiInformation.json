@@ -2,18 +2,18 @@
   "properties": {
     "apiRevision": "1",
     "authenticationSettings": {},
-    "description": "",
-    "displayName": "sampleapi100",
+    "description": "hello api sample 101",
+    "displayName": "sampleapi101",
     "isCurrent": true,
-    "path": "sampleapi100",
+    "path": "sampleapi101",
     "protocols": [
       "https"
     ],
-    "serviceUrl": "https://apimarektest2.azure-api.net/sampleapi100",
+    "serviceUrl": "https://apimarektest2.azure-api.net/sampleapi101",
     "subscriptionKeyParameterNames": {
       "header": "Ocp-Apim-Subscription-Key",
       "query": "subscription-key"
     },
-    "subscriptionRequired": false
+    "subscriptionRequired": true
   }
 }

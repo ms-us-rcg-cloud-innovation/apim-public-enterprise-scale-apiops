@@ -2,9 +2,9 @@
   - sampleapi100
   - demo-conference-api
   
- #  backendNames:
- #  - backendName1
- #  - backendName2
+  backendNames:
+  - backendName1
+  - backendName2
 
  # diagnosticNames:
  # - diagnosticName1

@@ -3,5 +3,4 @@
   - demo-conference-api
 
  namedValueNames:
-  - namedValueName1
-  - namedValueName2
+  - jwtAudience1

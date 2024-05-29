@@ -2,7 +2,7 @@
   "properties": {
     "displayName": "testSecret",
     "secret": true,
-    "tags": []
+    "tags": [],
     "value": "{#testSecretValue#}"
   }
 }

@@ -1,0 +1,14 @@
+apimServiceName: apimArekTest2
+namedValues:
+  - name: environment
+    properties:
+      displayName: environment
+      value: "https://www.search2.com"
+  - name: testSecret
+    properties:
+      displayName: testSecret
+      value: "{#testSecretValue#}"
+  - name: helloworldfromfuncapp-key
+    properties:
+      displayName: helloworldfromfuncapp-key
+      value: "{#helloworldfromfuncappkey#}"

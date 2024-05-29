@@ -3,6 +3,6 @@
     "displayName": "environment",
     "secret": false,
     "tags": [],
-    "value": "https://www.search2.com"
+    "value": "https://www.search2.TESTDIRECTCHANGE.com"
   }
 }

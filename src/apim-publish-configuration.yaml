@@ -4,10 +4,6 @@ namedValues:
     properties:
       displayName: environment
       value: "https://www.search2.com"
-  - name: testSecret
-    properties:
-      displayName: testSecret
-      value: "{#testSecretValue#}"
   - name: testkvsec
     properties:
       displayName: testkvsec

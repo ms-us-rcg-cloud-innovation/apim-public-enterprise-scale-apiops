@@ -3,7 +3,7 @@ namedValues:
   - name: environment
     properties:
       displayName: environment
-      value: "www.google.com"
+      value: "www.TEST.com"
   - name: testkvsec
     properties:
       displayName: testkvsec

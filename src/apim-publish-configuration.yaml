@@ -13,3 +13,7 @@ namedValues:
     properties:
       displayName: testSecret
       value: "{#TESTSECRETVALUE#}"
+backends:
+  - name: testBackend1
+    properties:
+      url: "https://helloworldfromprodfuncapp.azurewebsites.netChanged"  

@@ -7,7 +7,7 @@ namedValues:
   - name: testSecret
     properties:
       displayName: testSecret
-      value: "{#testSecretValue#}"
+      value: "{#TESTSECRETVALUE#}"
   - name: helloworldfromfuncapp-key
     properties:
       displayName: helloworldfromfuncapp-key

@@ -4,13 +4,12 @@ namedValues:
     properties:
       displayName: environment
       value: "https://www.search2.com"
-  - name: testSecret
-    properties:
-      displayName: testSecret
-      value: "{#testSecretValue#}"
   - name: testkvsec
     properties:
       displayName: testkvsec
       keyVault:
-        identityClientId: "7fb6d91b-71fe-4d12-b00f-ee617a618e6f"
         secretIdentifier: "https://kv-apimlz-dr-10max.vault.azure.net/secrets/testSecret1"
+  - name: testSecret
+    properties:
+      displayName: testSecret
+      value: "{#TESTSECRETVALUE#}"

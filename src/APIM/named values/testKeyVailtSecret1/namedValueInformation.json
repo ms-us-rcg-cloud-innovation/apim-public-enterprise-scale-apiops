@@ -1,0 +1,10 @@
+{
+  "properties": {
+    "displayName": "testKeyVailtSecret1",
+    "keyVault": {
+      "secretIdentifier": "https://kv-apimlz-dr-10max.vault.azure.net/secrets/testSecret1"
+    },
+    "secret": true,
+    "tags": []
+  }
+}

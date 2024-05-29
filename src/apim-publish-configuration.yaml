@@ -8,5 +8,4 @@ namedValues:
     properties:
       displayName: testkvsec
       keyVault:
-        identityClientId: "7fb6d91b-71fe-4d12-b00f-ee617a618e6f"
         secretIdentifier: "https://kv-apimlz-dr-10max.vault.azure.net/secrets/testSecret1"

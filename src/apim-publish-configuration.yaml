@@ -9,7 +9,7 @@ namedValues:
       displayName: testkvsec
       keyVault:
         secretIdentifier: "https://kv-apimlz-dr-10max.vault.azure.net/secrets/testSecret1"
- - name: testSecret
+  - name: testSecret
     properties:
       displayName: testSecret
       value: "{#TESTSECRETVALUE#}"

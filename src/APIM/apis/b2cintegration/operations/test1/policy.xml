@@ -1,0 +1,87 @@
+<policies>
+	<inbound>
+		<base />
+		<!-- Extract request body -->
+		<set-variable name="requestBody" value="@{
+            var body = context.Request.Body.As<string>(preserveContent: true);
+            return body;
+        }" />
+		<!-- Parse request body as JObject -->
+		<set-variable name="requestBodyObject" value="@{
+            var requestBodyObject = Newtonsoft.Json.Linq.JObject.Parse(context.Variables.GetValueOrDefault<string>("requestBody"));
+            return requestBodyObject;
+        }" />
+		<!-- Extract necessary fields from request body -->
+		<set-variable name="objectId" value="@(context.Variables.GetValueOrDefault<Newtonsoft.Json.Linq.JObject>("requestBodyObject")["objectId"].ToString())" />
+		<set-variable name="email" value="@(context.Variables.GetValueOrDefault<Newtonsoft.Json.Linq.JObject>("requestBodyObject")["signInNames.emailAddress"].ToString())" />
+		<!-- Use objectId as userId -->
+		<set-variable name="userId" value="@(context.Variables.GetValueOrDefault<string>("objectId"))" />
+		<!-- Set URL for the API request -->
+		<!--       <set-variable name="apiUrl" value="@{
+            var endpoint = $"https://management.azure.com/subscriptions/07a0904d-a5d1-4225-9425-271c26419878/resourceGroups/APIM-Testing/providers/Microsoft.ApiManagement/service/apimArekTest2/users/{context.Variables.GetValueOrDefault<string>("userId")}?api-version=2022-08-01";
+            return endpoint;
+        }" />  -->
+		<set-variable name="apiUrl" value="@{
+            var endpoint = $"https://e2aa-73-50-27-245.ngrok-free.app/test1";
+            return endpoint;
+        }" />
+		<!-- Construct request body for the API request -->
+		<set-variable name="apiRequestBody" value="@{
+            var requestBody = new Newtonsoft.Json.Linq.JObject(
+                new Newtonsoft.Json.Linq.JProperty("properties", new Newtonsoft.Json.Linq.JObject(
+                    new Newtonsoft.Json.Linq.JProperty("firstName", "Alert"),
+                    new Newtonsoft.Json.Linq.JProperty("lastName", "Demos"),
+                    new Newtonsoft.Json.Linq.JProperty("email", context.Variables.GetValueOrDefault<string>("email")),
+                    new Newtonsoft.Json.Linq.JProperty("groups", new Newtonsoft.Json.Linq.JArray(
+                        new Newtonsoft.Json.Linq.JObject(
+                            new Newtonsoft.Json.Linq.JProperty("id", "/subscriptions/07a0904d-a5d1-4225-9425-271c26419878/resourceGroups/APIM-Testing/providers/Microsoft.ApiManagement/service/apimArekTest2/groups/developers"),
+                            new Newtonsoft.Json.Linq.JProperty("name", "Developers"),
+                            new Newtonsoft.Json.Linq.JProperty("description", "Developers is a built-in group. Its membership is managed by the system. Signed-in users fall into this group."),
+                            new Newtonsoft.Json.Linq.JProperty("builtIn", true),
+                            new Newtonsoft.Json.Linq.JProperty("type", "system"),
+                            new Newtonsoft.Json.Linq.JProperty("externalId", null)
+                        ),
+                        new Newtonsoft.Json.Linq.JObject(
+                            new Newtonsoft.Json.Linq.JProperty("id", "/subscriptions/07a0904d-a5d1-4225-9425-271c26419878/resourceGroups/APIM-Testing/providers/Microsoft.ApiManagement/service/apimArekTest2/groups/testgroup1"),
+                            new Newtonsoft.Json.Linq.JProperty("name", "TestGroup1"),
+                            new Newtonsoft.Json.Linq.JProperty("description", null),
+                            new Newtonsoft.Json.Linq.JProperty("builtIn", false),
+                            new Newtonsoft.Json.Linq.JProperty("type", "custom"),
+                            new Newtonsoft.Json.Linq.JProperty("externalId", null)
+                        )
+                    )),
+                    new Newtonsoft.Json.Linq.JProperty("identities", new Newtonsoft.Json.Linq.JArray(
+                        new Newtonsoft.Json.Linq.JObject(
+                            new Newtonsoft.Json.Linq.JProperty("provider", "AadB2C"),
+                            new Newtonsoft.Json.Linq.JProperty("id", context.Variables.GetValueOrDefault<string>("objectId"))
+                        )
+                    ))
+                ))
+            );
+            return requestBody.ToString(Newtonsoft.Json.Formatting.None);
+        }" />
+		<!-- Send the API request -->
+		<send-request mode="new" response-variable-name="response" timeout="20" ignore-error="false">
+			<set-url>@(context.Variables.GetValueOrDefault<string>("apiUrl"))</set-url>
+			<set-method>PUT</set-method>
+			<set-header name="Content-Type" exists-action="override">
+				<value>application/json</value>
+			</set-header>
+			<set-body>@(context.Variables.GetValueOrDefault<string>("apiRequestBody"))</set-body>
+		</send-request>
+		<!-- Return the response -->
+		<return-response>
+			<set-status code="200" reason="OK" />
+			<set-body>@(context.Variables.GetValueOrDefault<Newtonsoft.Json.Linq.JObject>("response").ToString())</set-body>
+		</return-response>
+	</inbound>
+	<backend>
+		<base />
+	</backend>
+	<outbound>
+		<base />
+	</outbound>
+	<on-error>
+		<base />
+	</on-error>
+</policies>

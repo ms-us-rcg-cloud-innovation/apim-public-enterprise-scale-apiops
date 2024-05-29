@@ -12,4 +12,4 @@ namedValues:
  - name: testSecret
     properties:
       displayName: testSecret
-      value: "{#testSecretValue#}"
+      value: "{#TESTSECRETVALUE#}"

@@ -2,7 +2,7 @@
   "properties": {
     "displayName": "testkvsec",
     "keyVault": {
-      "secretIdentifier": "https://kv-apimlz-dr-10max.vault.azure.net/secrets/testkvsec"
+      "secretIdentifier": "https://kv-apimlz-dr-10max.vault.azure.net/secrets/testSecret1"
     },
     "secret": true,
     "tags": []

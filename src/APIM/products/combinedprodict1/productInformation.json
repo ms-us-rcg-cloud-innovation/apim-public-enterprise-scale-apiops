@@ -3,7 +3,7 @@
     "approvalRequired": false,
     "description": "tt",
     "displayName": "combinedProdict1",
-    "state": "notPublished",
+    "state": "published",
     "subscriptionRequired": true
   }
 }

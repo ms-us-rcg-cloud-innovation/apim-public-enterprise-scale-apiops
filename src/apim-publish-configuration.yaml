@@ -16,4 +16,4 @@ namedValues:
 backends:
   - name: testBackend1
     properties:
-      url: "https://helloworldfromprodfuncapp.azurewebsites.netChanged"  
+      url: "https://helloworldfromprodfuncapp.azurewebsites.netChanged2"  

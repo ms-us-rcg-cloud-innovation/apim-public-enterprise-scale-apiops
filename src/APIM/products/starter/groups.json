@@ -1,11 +1,5 @@
 [
   {
     "name": "administrators"
-  },
-  {
-    "name": "developers"
-  },
-  {
-    "name": "guests"
   }
 ]

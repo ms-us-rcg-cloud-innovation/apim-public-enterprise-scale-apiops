@@ -29,6 +29,27 @@ paths:
       responses:
         '200':
           description: ''
+  /userManagement:
+    post:
+      summary: userManagement
+      operationId: usermanagement
+      responses:
+        '200':
+          description: 
+  /userManagement2:
+    post:
+      summary: userManagement2
+      operationId: 66834ad04fadad77eceb0bd2
+      responses:
+        '200':
+          description: 
+  /test2:
+    post:
+      summary: test2
+      operationId: test2
+      responses:
+        '200':
+          description: 
 components:
   securitySchemes:
     apiKeyHeader:

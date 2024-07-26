@@ -1,8 +1,8 @@
 {
   "properties": {
     "approvalRequired": false,
-    "description": "tt",
-    "displayName": "combinedProdict1",
+    "description": "test",
+    "displayName": "testProduct111",
     "state": "published",
     "subscriptionRequired": true
   }

@@ -1,0 +1,83 @@
+<policies>
+	<inbound>
+		<base />
+		<!-- Store the entire body as a variable -->
+		<set-variable name="jsonBody" value="@{
+            return context.Request.Body.As<JObject>();
+        }" />
+		<!-- Extract userId from the stored jsonBody -->
+		<set-variable name="userId" value="@{
+            var jsonBody = context.Variables.GetValueOrDefault<JObject>("jsonBody");
+            return jsonBody.ContainsKey("objectId") ? jsonBody["objectId"].ToString() : string.Empty;
+        }" />
+		<!-- Extract email from the stored jsonBody -->
+		<set-variable name="email" value="@{
+            var jsonBody = context.Variables.GetValueOrDefault<JObject>("jsonBody");
+            return jsonBody.ContainsKey("email") ? jsonBody["email"].ToString() : string.Empty;
+        }" />
+		<!-- Split displayName into firstName and lastName -->
+		<set-variable name="firstName" value="@{
+            var jsonBody = context.Variables.GetValueOrDefault<JObject>("jsonBody");
+            var displayName = jsonBody.ContainsKey("displayName") ? jsonBody["displayName"].ToString() : "";
+            return displayName.Split(' ')[0];
+        }" />
+		<set-variable name="lastName" value="@{
+            var jsonBody = context.Variables.GetValueOrDefault<JObject>("jsonBody");
+            var displayName = jsonBody.ContainsKey("displayName") ? jsonBody["displayName"].ToString() : "";
+            return displayName.Contains(" ") ? displayName.Split(' ')[1] : "NA";
+        }" />
+		<set-variable name="groupId" value="@{
+            var jsonBody = context.Variables.GetValueOrDefault<JObject>("jsonBody");
+            return jsonBody["groups"][0].ToString();
+        }" />
+		<!-- User creation request -->
+		<send-request mode="new" response-variable-name="updateResponse" timeout="20" ignore-error="true">
+			<set-url>@($"https://management.azure.com/subscriptions/07a0904d-a5d1-4225-9425-271c26419878/resourceGroups/APIM-Testing/providers/Microsoft.ApiManagement/service/apimArekTest2/users/{(string)context.Variables["userId"]}?api-version=2022-08-01")</set-url>
+			<set-method>PUT</set-method>
+			<set-header name="Content-Type" exists-action="override">
+				<value>application/json</value>
+			</set-header>
+			<set-body>@{
+                return new JObject(
+                    new JProperty("properties", new JObject(
+                        new JProperty("firstName", context.Variables["firstName"]),
+                        new JProperty("lastName", context.Variables["lastName"]),
+                        new JProperty("email", context.Variables["email"]),
+                        new JProperty("id", $"/subscriptions/07a0904d-a5d1-4225-9425-271c26419878/resourceGroups/APIM-Testing/providers/Microsoft.ApiManagement/service/apimArekTest2/users/{context.Variables["userId"]}"),
+                        new JProperty("identities", new JArray(
+                            new JObject(
+                                new JProperty("provider", "AadB2C"),
+                                new JProperty("id", context.Variables["userId"])
+                            )
+                        ))
+                    ))
+                ).ToString();
+            }</set-body>
+			<authentication-managed-identity resource="https://management.azure.com/" />
+		</send-request>
+		<return-response response-variable-name="updateResponse" />
+		<!-- Additional request to add user to group -->
+		<choose>
+			<when condition="@((string)context.Variables["groupId"] == "SSO_Okta_api_dev_portal_developer_test")">
+				<send-request mode="new" response-variable-name="groupAddResponse" timeout="20" ignore-error="true">
+					<set-url>@($"https://management.azure.com/subscriptions/07a0904d-a5d1-4225-9425-271c26419878/resourceGroups/APIM-Testing/providers/Microsoft.ApiManagement/service/apimArekTest2/groups/group1/users/{(string)context.Variables["userId"]}?api-version=2022-08-01")</set-url>
+					<set-method>PUT</set-method>
+					<set-header name="Content-Type" exists-action="override">
+						<value>application/json</value>
+					</set-header>
+					<authentication-managed-identity resource="https://management.azure.com/" />
+				</send-request>
+				<return-response response-variable-name="groupAddResponse" />
+			</when>
+		</choose>
+	</inbound>
+	<backend>
+		<base />
+	</backend>
+	<outbound>
+		<base />
+	</outbound>
+	<on-error>
+		<base />
+	</on-error>
+</policies>

@@ -1,0 +1,10 @@
+{
+  "properties": {
+    "credentials": {
+      "instrumentationKey": "{{Logger-Credentials--66651bc2fb42680fd4258575}}"
+    },
+    "isBuffered": true,
+    "loggerType": "applicationInsights",
+    "resourceId": "/subscriptions/07a0904d-a5d1-4225-9425-271c26419878/resourceGroups/zzB2C/providers/microsoft.insights/components/b2cAppInsights"
+  }
+}

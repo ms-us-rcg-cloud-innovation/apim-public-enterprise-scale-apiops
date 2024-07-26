@@ -1,5 +1,20 @@
 [
   {
+    "name": "b2cintegration"
+  },
+  {
+    "name": "demo-conference-api"
+  },
+  {
     "name": "echo-api"
+  },
+  {
+    "name": "sampleapi100"
+  },
+  {
+    "name": "sampleapi101"
+  },
+  {
+    "name": "wildcard"
   }
 ]

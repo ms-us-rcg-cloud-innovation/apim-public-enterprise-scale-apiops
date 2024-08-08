@@ -3,7 +3,7 @@ namedValues:
   - name: environment
     properties:
       displayName: environment
-      value: "https://www.search3.com"
+      value: "{#TESTSECRETVALUE#}"
   - name: testSecret
     properties:
       displayName: testSecret

@@ -3,7 +3,7 @@ namedValues:
   - name: environment
     properties:
       displayName: environment
-      value: "https://www.search2.com"
+      value: "https://www.search3.com"
   - name: testSecret
     properties:
       displayName: testSecret

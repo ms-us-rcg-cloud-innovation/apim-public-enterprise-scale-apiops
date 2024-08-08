@@ -3,7 +3,7 @@ namedValues:
   - name: environment
     properties:
       displayName: environment
-      value: "{#TESTNONSECRETVALUE#}"
+      value: "{#env.TESTNONSECRETVALUE#}"
   - name: testSecret
     properties:
       displayName: testSecret

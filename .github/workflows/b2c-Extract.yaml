@@ -11,10 +11,10 @@ on:
 
   workflow_dispatch:
     inputs:
-      environment: 
-        description: 'Environment to publish to'
+      environment:
+        description: 'environment to extract from'
         required: true
-        type: string
+        type: environment
 
 permissions:
   id-token: write

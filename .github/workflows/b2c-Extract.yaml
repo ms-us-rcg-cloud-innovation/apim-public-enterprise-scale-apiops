@@ -44,17 +44,20 @@ jobs:
           Install-Module -Name IefPolicies -RequiredVersion 2.2.6 -Force -Scope CurrentUser
         shell: pwsh
 
-      - name: Connect to Azure AD B2C
+      - name: Connect to Azure AD B2C and Export IEF Policies
         run: |
           Connect-IefPolicies -tenant "${{ env.B2C_TENANT }}" -clientId "${{ env.AZURE_CLIENT_ID }}" -clientSecret "${{ env.AZURE_CLIENT_SECRET }}"
-        shell: pwsh
-
-      - name: Export IEF Policies
-        run: |
           Export-IEFPolicies
           mkdir -p ${{ GITHUB.WORKSPACE }}/ief-policies
           cp -r ./*.xml ${{ GITHUB.WORKSPACE }}/ief-policies/
         shell: pwsh
+
+      # - name: Export IEF Policies
+      #   run: |
+      #     Export-IEFPolicies
+      #     mkdir -p ${{ GITHUB.WORKSPACE }}/ief-policies
+      #     cp -r ./*.xml ${{ GITHUB.WORKSPACE }}/ief-policies/
+      #   shell: pwsh
 
       - name: Commit and Push IEF Policies to New Branch
         run: |

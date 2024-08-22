@@ -45,7 +45,7 @@ env:
 
 jobs:
   # This workflow contains a single job called "build"
-  APIM-Import-APIs:
+  Publish-IEF-Policies:
     runs-on: ubuntu-latest
     environment: ${{inputs.environment}}
     

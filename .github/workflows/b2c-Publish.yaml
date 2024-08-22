@@ -1,0 +1,72 @@
+#####################################################################################################
+# NOTE: The publisher keys off of environment variablesto change the behavior of the publish process.
+#       * CONFIGURATION_YAML_PATH - if exists, will use config file to override settings on publish
+#       * COMMIT_ID - if exists, will only publish changes that occurred in this commit(not implemented)
+#
+#       More details here; https://github.com/Azure/apiops/wiki/Configuration#configuration-providers
+#####################################################################################################
+
+name: APIM - Publish APIs and Artifacts
+
+on:
+  workflow_call:
+    #NOTE: workflow_call doesn't support choice inputs, have to constrain in calling workflow
+    inputs:
+      environment:
+        description: 'environment to publish to'
+        required: true
+        type: string
+        default: 'dev'
+      USE_CONFIG_FILE:
+        description: 'whether or not to use a config file to override settings'
+        required: false
+        type: boolean
+        default: false
+
+  workflow_dispatch:
+    inputs:
+      environment: 
+        description: 'environment to publish to'
+        required: true
+        type: environment
+      USE_CONFIG_FILE:
+        description: 'whether or not to use a config file to override settings'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  id-token: write
+  contents: write
+  pull-requests: write
+
+env:
+  RUNNER_DEBUG: 1
+
+jobs:
+  # This workflow contains a single job called "build"
+  APIM-Import-APIs:
+    runs-on: ubuntu-latest
+    environment: ${{inputs.environment}}
+    
+    env:
+      AZURE_CLIENT_ID: ${{ secrets.B2C_AZURE_CLIENT_ID }}
+      AZURE_CLIENT_SECRET: ${{ secrets.B2C_AZURE_CLIENT_SECRET }}
+      B2C_TENANT: ${{ secrets.B2C_TENANT }}
+
+    steps:
+  
+      - uses: actions/checkout@v3
+
+      - name: Install IefPolicies PowerShell Module
+        run: |
+          Install-Module -Name IefPolicies -RequiredVersion 2.2.6 -Force -Scope CurrentUser
+        shell: pwsh
+
+      - name: Connect to Azure AD B2C and Publish IEF Policies
+        run: |
+          Connect-IefPolicies -tenant "${{ env.B2C_TENANT }}" -clientId "${{ env.AZURE_CLIENT_ID }}" -clientSecret "${{ env.AZURE_CLIENT_SECRET }}"
+          cd ief-policies
+          Import-IEFPolicies
+        shell: pwsh
+

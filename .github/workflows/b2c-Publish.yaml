@@ -17,11 +17,6 @@ on:
         required: true
         type: string
         default: 'dev'
-      USE_CONFIG_FILE:
-        description: 'whether or not to use a config file to override settings'
-        required: false
-        type: boolean
-        default: false
 
   workflow_dispatch:
     inputs:
@@ -29,11 +24,6 @@ on:
         description: 'environment to publish to'
         required: true
         type: environment
-      USE_CONFIG_FILE:
-        description: 'whether or not to use a config file to override settings'
-        required: false
-        type: boolean
-        default: false
 
 permissions:
   id-token: write

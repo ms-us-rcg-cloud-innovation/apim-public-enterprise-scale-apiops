@@ -45,7 +45,7 @@ jobs:
 
       - name: Connect to Azure AD B2C
         run: |
-          Connect-IefPolicies -tenant "${{ secrets.B2C_TENANT }}" -clientId "${{ secrets.AZURE_CLIENT_ID }}" -clientSecret "${{ secrets.AZURE_CLIENT_SECRET }}"
+          Connect-IefPolicies -tenant "${{ secrets.B2C_TENANT }}" -clientId "${{ secrets.B2C_AZURE_CLIENT_ID }}" -clientSecret "${{ secrets.B2C_AZURE_CLIENT_SECRET }}"
         shell: pwsh
 
       - name: Export IEF Policies

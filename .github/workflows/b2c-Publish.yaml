@@ -6,7 +6,7 @@
 #       More details here; https://github.com/Azure/apiops/wiki/Configuration#configuration-providers
 #####################################################################################################
 
-name: B2C Publish
+name: APIM - Publish APIs and Artifacts
 
 on:
   workflow_call:

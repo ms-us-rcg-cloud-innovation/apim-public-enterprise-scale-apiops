@@ -30,8 +30,8 @@ jobs:
     environment: ${{inputs.environment}}
     
     env:
-      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-      AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      AZURE_CLIENT_ID: ${{ secrets.B2C_AZURE_CLIENT_ID }}
+      AZURE_CLIENT_SECRET: ${{ secrets.B2C_AZURE_CLIENT_SECRET }}
       B2C_TENANT: ${{ secrets.B2C_TENANT }}
 
     steps:
